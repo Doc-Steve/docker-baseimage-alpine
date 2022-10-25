@@ -1,8 +1,18 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-PUID=${PUID:-911}
-PGID=${PGID:-911}
+if [ -z "$PUID" ] && [ -z "$PGID" ] && [ -n "$REFDIR" ]; then
+    echo "
+Using reference dir for UID/GID:
+    ${REFDIR}
+-------------------------------------
+"
+    PUID=$(ls --numeric-uid-gid -d $REFDIR | awk '{ print $3 }')
+    PGID=$(ls --numeric-uid-gid -d $REFDIR | awk '{ print $4 }')
+else
+    PUID=${PUID:-911}
+    PGID=${PGID:-911}
+fi
 
 groupmod -o -g "$PGID" abc
 usermod -o -u "$PUID" abc
