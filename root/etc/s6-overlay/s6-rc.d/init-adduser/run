@@ -7,8 +7,8 @@ Using reference dir for UID/GID:
     ${REFDIR}
 -------------------------------------
 "
-    PUID=$(ls --numeric-uid-gid -d $REFDIR | awk '{ print $3 }')
-    PGID=$(ls --numeric-uid-gid -d $REFDIR | awk '{ print $4 }')
+    PUID=$(ls --numeric-uid-gid -d '$REFDIR' | awk '{ print $3 }')
+    PGID=$(ls --numeric-uid-gid -d '$REFDIR' | awk '{ print $4 }')
 else
     PUID=${PUID:-911}
     PGID=${PGID:-911}
